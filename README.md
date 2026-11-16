@@ -3,9 +3,9 @@
 
 ## Identificación y Alcance
 * **Proyecto:** FaunaCloud
-* **Sección:** [Tu Sección]
-* **Integrantes:** [Nombres de los integrantes]
-* **Enlace al Frontend:** [Pega aquí el link del repo de React]
+* **Sección:** 
+* **Integrantes:** [Diego sanzana Benjamin rojas]
+* **Enlace al Frontend:** 
 
 ## Decisiones Técnicas
 * **Framework:** Node.js con Express.

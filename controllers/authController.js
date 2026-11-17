@@ -9,10 +9,10 @@ const registrarUsuario = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Guardar en la base de datos
+    // Guardar en la base de datos (El servidor asigna el rol "cliente" por defecto)
     const result = await pool.query(
-      'INSERT INTO usuarios (email, password) VALUES ($1, $2) RETURNING id, email',
-      [email, hashedPassword]
+      'INSERT INTO usuarios (email, password, rol) VALUES ($1, $2, $3) RETURNING id, email, rol',
+      [email, hashedPassword, 'cliente']
     );
     res.status(201).json({ mensaje: 'Usuario registrado exitosamente', usuario: result.rows[0] });
   } catch (error) {
@@ -39,8 +39,8 @@ const loginUsuario = async (req, res) => {
       return res.status(401).json({ error: 'Credenciales incorrectas' });
     }
 
-    // Generar el token JWT
-    const token = jwt.sign({ email: usuario.email }, process.env.JWT_SECRET, { expiresIn: '2h' });
+    // Generar el token JWT (Aproveché de incluir el rol en el token, es una buena práctica)
+    const token = jwt.sign({ email: usuario.email, rol: usuario.rol }, process.env.JWT_SECRET, { expiresIn: '2h' });
     
     res.json({ mensaje: 'Login exitoso', token });
   } catch (error) {

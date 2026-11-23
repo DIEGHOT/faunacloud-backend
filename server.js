@@ -3,6 +3,8 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 require('dotenv').config();
 const pool = require('./config/db'); 
+
+// Importación de rutas
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const servicioRoutes = require('./routes/servicioRoutes');
@@ -11,19 +13,23 @@ const citaRoutes = require('./routes/citaRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Middlewares
 app.use(cors()); 
 app.use(express.json()); 
+
+// Rutas de la API
 app.use('/api/auth', authRoutes);
 app.use('/api/usuarios', userRoutes);
 app.use('/api/servicios', servicioRoutes);
 app.use('/api/citas', citaRoutes);
 
+// Configuración de Swagger
 const swaggerDocument = {
   openapi: '3.0.0',
   info: {
     title: 'FaunaCloud API',
     version: '1.0.0',
-    description: 'Documentación de la API de FaunaCloud'
+    description: 'Documentación de la API de FaunaCloud para la gestión de servicios veterinarios.'
   },
   servers: [
     { url: `http://localhost:${PORT}` }
@@ -252,12 +258,16 @@ const swaggerDocument = {
   }
 };
 
+// Activar Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+// Ruta de Health Check
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'OK', message: 'API FaunaCloud funcionando' });
 });
 
+// Iniciar Servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Documentación disponible en http://localhost:${PORT}/api-docs`);
 });

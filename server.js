@@ -261,6 +261,11 @@ const swaggerDocument = {
 // Activar Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+// Ruta Principal (Root)
+app.get('/', (req, res) => {
+  res.send('API de FaunaCloud funcionando correctamente. Visita /api-docs para ver la documentación.');
+});
+
 // Ruta de Health Check
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'OK', message: 'API FaunaCloud funcionando' });

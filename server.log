@@ -1,0 +1,5 @@
+◇ injected env (7) from .env
+◇ injected env (0) from .env
+Servidor corriendo en http://localhost:3000
+Documentación en http://localhost:3000/api-docs
+📦 Conexión exitosa a la base de datos PostgreSQL
